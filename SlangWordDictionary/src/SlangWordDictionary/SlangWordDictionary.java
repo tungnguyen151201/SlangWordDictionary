@@ -21,24 +21,45 @@ public class SlangWordDictionary {
 			e.printStackTrace();
 		}
 	}
-	public static void ReadDatFile() {
+	public static HashMap<String, String> ReadDatFile() {
 		try {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("slang.dat"));
-			HashMap<String, String> hm = (HashMap<String, String>)ois.readObject();
-			System.out.println(hm.get("#1"));
+			HashMap<String, String> hm = (HashMap<String, String>)ois.readObject();			
 			ois.close();
+			return hm;
 		} catch (IOException e) {			
 			e.printStackTrace();
 		}
 		catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+		return null;
+	}
+	public static void SearchSlangWord(HashMap<String, String> hm) {
+		System.out.println("Nhap slang word can tim:");
+		Scanner sc1 = new Scanner(System.in);
+		String sw = sc1.nextLine();
+		if (hm.get(sw) != null) {
+			System.out.println("Nghia cua slang word: " + hm.get(sw));
+		}
+		else {
+			System.out.println("Khong tim thay slang word!");
+		}
 	}
 	public static void main(String[] args) {
+		File f = new File("slang.dat");
+		if (!f.exists()) {
+			ReadTextFile();
+		}
+		HashMap<String, String> hm = ReadDatFile();
+		if (hm == null) {
+			System.out.println("Loi doc dat file!");
+			return;
+		}
 		while (true) {
 			System.out.println("Chon chuc nang thuc hien:");
 			System.out.println("0. Thoat chuong trinh");
-			System.out.println("1. Tim kiem");
+			System.out.println("1. Tim kiem theo slang word");
 			Scanner sc = new Scanner(System.in);
 			int option = sc.nextInt();
 			switch (option) {
@@ -46,8 +67,7 @@ public class SlangWordDictionary {
 				System.out.println("Chuong trinh ket thuc!");
 				return;
 			case 1:
-				ReadTextFile();
-				ReadDatFile();
+				SearchSlangWord(hm);
 				break;
 			}
 		}
