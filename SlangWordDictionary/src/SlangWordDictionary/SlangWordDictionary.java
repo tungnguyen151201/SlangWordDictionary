@@ -46,6 +46,25 @@ public class SlangWordDictionary {
 			System.out.println("Khong tim thay slang word!");
 		}
 	}
+	public static void SearchDefinition(HashMap<String, String> hm) {
+		System.out.println("Nhap definition can tim:");
+		Scanner sc2 = new Scanner(System.in);
+		String sw = sc2.nextLine();
+		Set<Map.Entry<String, String>> set = hm.entrySet();
+		boolean flag = false;
+		for (Map.Entry<String, String> me : set) {
+			if (me.getValue().contains(sw)) {
+				if (!flag) {
+					System.out.println("Slang words:");
+					flag = true;
+				}
+				System.out.println(me.getKey() + " - " + me.getValue());
+			}
+		}
+		if (!flag) {
+			System.out.println("Khong tim thay slang word!");
+		}
+	}
 	public static void main(String[] args) {
 		File f = new File("slang.dat");
 		if (!f.exists()) {
@@ -60,6 +79,7 @@ public class SlangWordDictionary {
 			System.out.println("Chon chuc nang thuc hien:");
 			System.out.println("0. Thoat chuong trinh");
 			System.out.println("1. Tim kiem theo slang word");
+			System.out.println("2. Tim kiem theo definition");
 			Scanner sc = new Scanner(System.in);
 			int option = sc.nextInt();
 			switch (option) {
@@ -68,6 +88,9 @@ public class SlangWordDictionary {
 				return;
 			case 1:
 				SearchSlangWord(hm);
+				break;
+			case 2:
+				SearchDefinition(hm);
 				break;
 			}
 		}
