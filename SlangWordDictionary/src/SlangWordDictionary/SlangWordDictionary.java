@@ -4,6 +4,7 @@ import java.util.*;
 import java.io.*;
 
 public class SlangWordDictionary {
+	public static List<String> history = new ArrayList<String>();
 	public static void ReadTextFile() {
 		try {
 			Scanner sc = new Scanner(new FileInputStream("slang.txt"));
@@ -39,6 +40,7 @@ public class SlangWordDictionary {
 		System.out.println("Nhap slang word can tim:");
 		Scanner sc1 = new Scanner(System.in);
 		String sw = sc1.nextLine();
+		history.add(sw);
 		if (hm.get(sw) != null) {
 			System.out.println("Nghia cua slang word: " + hm.get(sw));
 		}
@@ -65,6 +67,16 @@ public class SlangWordDictionary {
 			System.out.println("Khong tim thay slang word!");
 		}
 	}
+	public static void HistorySlangWord() {
+		if (history.isEmpty()) {
+			System.out.println("Ban chua tim kiem slang word nao!");
+			return;
+		}
+		System.out.println("Cac slang word da tim kiem:");
+		for (String sw : history) {
+			System.out.println(sw);
+		}
+	}
 	public static void main(String[] args) {
 		File f = new File("slang.dat");
 		if (!f.exists()) {
@@ -80,6 +92,7 @@ public class SlangWordDictionary {
 			System.out.println("0. Thoat chuong trinh");
 			System.out.println("1. Tim kiem theo slang word");
 			System.out.println("2. Tim kiem theo definition");
+			System.out.println("3. Xem lich su tim kiem slang word");
 			Scanner sc = new Scanner(System.in);
 			int option = sc.nextInt();
 			switch (option) {
@@ -91,6 +104,9 @@ public class SlangWordDictionary {
 				break;
 			case 2:
 				SearchDefinition(hm);
+				break;
+			case 3:
+				HistorySlangWord();
 				break;
 			}
 		}
