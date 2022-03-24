@@ -129,6 +129,34 @@ public class SlangWordDictionary {
 		Object key = crunchifyKeys[new Random().nextInt(crunchifyKeys.length)];
 		System.out.println("Random slang word: " + key + " - " + hm.get(key));
 	}
+	public static void DoVui1(HashMap<String, String> hm) {
+		Object[] crunchifyKeys = hm.keySet().toArray();
+		Object[] crunchifyValues = hm.values().toArray();
+		Object key = crunchifyKeys[new Random().nextInt(crunchifyKeys.length)];
+		String rightAnswer = hm.get(key);
+		List<String> answers = new ArrayList<String>();
+		answers.add(rightAnswer);
+		for (int i = 0 ; i < 3; i++) {
+			Object value = crunchifyValues[new Random().nextInt(crunchifyValues.length)];
+			answers.add((String) value);
+		}
+		Collections.shuffle(answers);
+		System.out.println("Nghia cua \"" + key + "\" la?");
+		for (int i = 1; i < 5; i++) {
+			System.out.println(i + ". " + answers.get(i - 1));
+		}
+		Scanner sc6 = new Scanner(System.in);
+		int option = sc6.nextInt();
+		if (answers.get(option - 1).equals(rightAnswer)) {
+			System.out.println("Chuc mung ban da tra loi dung!");
+		}
+		else {
+			System.out.println("Ban tra loi sai roi. Dap an la: " + rightAnswer);
+		}
+	}
+	public static void DoVui2(HashMap<String, String> hm) {
+		
+	}
 	public static void main(String[] args) {
 		File f = new File("slang.dat");
 		if (!f.exists()) {
@@ -150,6 +178,8 @@ public class SlangWordDictionary {
 			System.out.println("6. Delete slang word");
 			System.out.println("7. Reset danh sach slang word goc");
 			System.out.println("8. Random slang word");
+			System.out.println("9. Do vui 1 (random slang word)");
+			System.out.println("10. Do vui 2 (random definition)");
 			Scanner sc = new Scanner(System.in);
 			int option = sc.nextInt();
 			switch (option) {
@@ -180,6 +210,9 @@ public class SlangWordDictionary {
 				break;
 			case 8:
 				RandomSlangWord(hm);
+				break;
+			case 9:
+				DoVui1(hm);
 				break;
 			}
 		}
