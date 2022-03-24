@@ -109,10 +109,13 @@ public class SlangWordDictionary {
 		}
 	}
 	public static void DeleteSlangWord(HashMap<String, String> hm) {
-		System.out.println("Nhap slang word can edit:");
+		System.out.println("Nhap slang word muon xoa:");
 		Scanner sc5 = new Scanner(System.in);
 		String sw = sc5.nextLine();
 		if (hm.get(sw) != null) {
+			System.out.println("Ban co chac chan muon xoa khong? (1.Yes/0.No)");
+			int yesno = sc5.nextInt();
+			if (yesno == 0) return;
 			hm.remove(sw);
 			WriteDatFile(hm);
 			System.out.println("Delete slang word thanh cong!");
@@ -120,6 +123,11 @@ public class SlangWordDictionary {
 		else {
 			System.out.println("Khong tim thay slang word!");
 		}
+	}
+	public static void RandomSlangWord(HashMap<String, String> hm) {
+		Object[] crunchifyKeys = hm.keySet().toArray();
+		Object key = crunchifyKeys[new Random().nextInt(crunchifyKeys.length)];
+		System.out.println("Random slang word: " + key + " - " + hm.get(key));
 	}
 	public static void main(String[] args) {
 		File f = new File("slang.dat");
@@ -140,6 +148,8 @@ public class SlangWordDictionary {
 			System.out.println("4. Add slang word");
 			System.out.println("5. Edit slang word");
 			System.out.println("6. Delete slang word");
+			System.out.println("7. Reset danh sach slang word goc");
+			System.out.println("8. Random slang word");
 			Scanner sc = new Scanner(System.in);
 			int option = sc.nextInt();
 			switch (option) {
@@ -163,6 +173,13 @@ public class SlangWordDictionary {
 				break;
 			case 6:
 				DeleteSlangWord(hm);
+				break;
+			case 7:
+				ReadTextFile();
+				System.out.println("Reset danh sach slang word thanh cong!");
+				break;
+			case 8:
+				RandomSlangWord(hm);
 				break;
 			}
 		}
