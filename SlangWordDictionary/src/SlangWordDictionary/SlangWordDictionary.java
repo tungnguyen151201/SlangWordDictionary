@@ -108,6 +108,19 @@ public class SlangWordDictionary {
 			System.out.println("Khong tim thay slang word!");
 		}
 	}
+	public static void DeleteSlangWord(HashMap<String, String> hm) {
+		System.out.println("Nhap slang word can edit:");
+		Scanner sc5 = new Scanner(System.in);
+		String sw = sc5.nextLine();
+		if (hm.get(sw) != null) {
+			hm.remove(sw);
+			WriteDatFile(hm);
+			System.out.println("Delete slang word thanh cong!");
+		}
+		else {
+			System.out.println("Khong tim thay slang word!");
+		}
+	}
 	public static void main(String[] args) {
 		File f = new File("slang.dat");
 		if (!f.exists()) {
@@ -126,6 +139,7 @@ public class SlangWordDictionary {
 			System.out.println("3. Xem lich su tim kiem slang word");
 			System.out.println("4. Add slang word");
 			System.out.println("5. Edit slang word");
+			System.out.println("6. Delete slang word");
 			Scanner sc = new Scanner(System.in);
 			int option = sc.nextInt();
 			switch (option) {
@@ -146,6 +160,9 @@ public class SlangWordDictionary {
 				break;
 			case 5:
 				EditSlangWord(hm);
+				break;
+			case 6:
+				DeleteSlangWord(hm);
 				break;
 			}
 		}
